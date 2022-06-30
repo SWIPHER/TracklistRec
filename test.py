@@ -8,17 +8,24 @@ print("[*] Deleting Cache...")
 os.system("rm  output/*.*")
 print("[*] Done!")
 path="output/"
-file_path="psybient.mp3"
+file_path="psybient.mp3" #这里修改要被识别的文件路径
 names=[]
 trackss={}
 commands_base="songrec audio-file-to-recognized-song "
+precision=30 #修改时间间隔 推荐(15-30秒)
 print("[*] Spliting Music...")
 local_time = time.strftime("%Y-%m-%d_%H%M%S", time.localtime())
 log_name=file_path+"_"+local_time+".log"
 log_name_full=file_path+"_"+local_time+"_full"+".log"
 logs=open(log_name,"w")
 logs_full=open(log_name_full,"w")
-def get_music_name(commands):
+def SectoTime(timestamp):
+    hours=timestamp//3600
+    minute=(timestamp%3600)//60
+    sec=timestamp%60
+    TimeString=str(hours)+":"+str(minute)+":"+str(sec)
+    return(TimeString)
+def get_music_name(commands,i):
     try:
         StartTime=time.time()
         result=os.popen(commands)
@@ -27,7 +34,10 @@ def get_music_name(commands):
         name=data["track"]["title"]
         artist=data["track"]["subtitle"]
         url=data["track"]["url"]
-        info=[StartTime,name,artist,url,1]
+        duration=i*precision
+        SectoString=SectoTime(duration)
+        info=[StartTime,name,artist,url,1,SectoString]
+        
         if name in trackss:
             trackss[name][4]=trackss[name][4]+1
         else:
@@ -39,7 +49,7 @@ try:
 except:
 	pass
 audio = AudioSegment.from_file(file_path)
-size = 30000  #切割的毫秒数 10s=10000
+size = precision*1000  #切割的毫秒数 10s=10000
 chunks = make_chunks(audio, size)  #将文件切割为10s一块
 def chunk_out(chunk_name):
     chunk.export(chunk_name, format="mp3")
@@ -77,7 +87,7 @@ for i in names:
         #get_music_name(commands)
         while(len(threading.enumerate())>=32):
             time.sleep(1)
-        threading.Thread(target=get_music_name,args=(commands,),name=str(i)).start()
+        threading.Thread(target=get_music_name,args=(commands,count-1,),name=str(i)).start()
         print("\r[*]",round((count/total)*100,1),"%",end="")
     except Exception as e:
         pass
@@ -89,7 +99,7 @@ while(1):
 print("[*] Done")
 print("[*] Results:")
 for i in trackss:
-    text=str(trackss[i][2])+"-"+str(trackss[i][1])+"\t"+str(trackss[i][3])+"\t"+str(trackss[i][4])
+    text=str(trackss[i][5])+"\t"+str(trackss[i][2])+"-"+str(trackss[i][1])+"\t"+str(trackss[i][3])+"\t"+str(trackss[i][4])
     if(trackss[i][4]>=2):
         logs.write(text+"\n")
         print(text)
