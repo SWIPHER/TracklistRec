@@ -8,9 +8,9 @@ I just Tried this code on Ubuntu for wsl1 !
 
 1.First of all you should install Shazam client which is write by marin-m
 
-sudo apt-add-repository ppa:marin-m/songrec -y -u \n
-sudo apt install songrec -y \n
-songrec \n
+sudo apt-add-repository ppa:marin-m/songrec -y -u 
+sudo apt install songrec -y 
+songrec 
 
 2. Secondly use pip to install the required libraries for python
 
