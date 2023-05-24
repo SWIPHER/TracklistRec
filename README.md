@@ -16,10 +16,10 @@ songrec <br>
 <br>
 pip3 install -r requirements.txt
 
-## How to use it?
-
-1.Put your music file to the same folder as the test.py
-2.Change line 11 :
-          file_path="psybient.mp3" to your own music name.
-3.Run:
-          python3 test.py 
+## How to use it?<br>
+<br>
+1.Put your music file to the same folder as the test.py<br>
+2.Change line 11 :<br>
+          file_path="psybient.mp3" to your own music name.<br>
+3.Run:<br>
+          python3 test.py <br>
