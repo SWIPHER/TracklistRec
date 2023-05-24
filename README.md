@@ -2,7 +2,7 @@
 Really Thanks for marin-m's Shazam client code
 https://github.com/marin-m/SongRec<br>
 
-Installation:<br>
+## Installation:<br>
 <br>
 I just Tried this code on Ubuntu for wsl1 !<br>
 <br>
@@ -16,4 +16,10 @@ songrec <br>
 <br>
 pip3 install -r requirements.txt
 
+## How to use it?
 
+1.Put your music file to the same folder as the test.py
+2.Change line 11 :
+          file_path="psybient.mp3" to your own music name.
+3.Run:
+          python3 test.py 
