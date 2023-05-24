@@ -19,7 +19,11 @@ pip3 install -r requirements.txt
 ## How to use it?<br>
 <br>
 1.Put your music file to the same folder as the test.py<br>
+<br>
 2.Change line 11 :<br>
-          file_path="psybient.mp3" to your own music name.<br>
+<br>
+&#9;&#9file_path="psybient.mp3" to your own music name.<br>
+<br>
 3.Run:<br>
-          python3 test.py <br>
+<br>
+&#9;&#9python3 test.py <br>
